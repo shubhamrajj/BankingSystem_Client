@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            ViewDetails()
+        });
+
+
+        function ViewDetails() {
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:53682/api/GetAdminProfiles",
+                contentType: "application/json",
+                success: function (data) {
+
+
+                    $('#tbody1').empty();
+                    $.each(data, function (i, item) {
+
+                        var row = "<tr><td>" + item.ID + "</td> <td>" + item.Name + "</td> < td > <input type='button' value='Edit' onclick='OpenEditPopup(" + item.ID + ")' /></td> </tr >";
+                        $('#tbody1').append(row);
+
+                    });
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+
+    </script>
+</head>
+<body>
+    <div>
+        <table class="table">
+            <thead id="thead1">
+                <tr>
+                    <th> ID </th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="tbody1"></tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+﻿@model BankingSystem_client.Models.Admin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <style>
+        #login-div {
+            position: absolute;
+            left: 40%;
+            top: 40%;
+            border: 1px solid #ccc;
+            padding: 10px 10px;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+        //if (Value.Bank == Customer) {
+
+        //}
+        function Login() {
+
+            var Detail = {
+                Name: $('#Name').val(),
+                Psswrd: $('#Psswrd').val()
+            };
+
+            if ($('#Name').val().trim() == '') {
+                alert('Please enter name.'); return false;
+            } if ($('#Psswrd').val().trim() == '') {
+                alert('Please enter password.'); return false;
+            }
+
+            //alert(Detail);
+            $.ajax({
+                url: "http://localhost:51996/api/login",
+                data: JSON.stringify(Detail),
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) { //output
+                    if (data == 1) {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:51996/api/GetToken",
+                            dataType: "json",
+                            contentType: "application/json",
+                            // headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzczM2U2Ny1hNDllLTQxNzUtOGQ4NS1jNzUzNjI5NzcyYTMiLCJ2YWxpZCI6IjEiLCJ1c2VyaWQiOiIxIiwibmFtZSI6ImJpbGFsIiwiZXhwIjoxNjQ5NDM5NzA3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.6MFPER06bWG_GpIcRuD-gd5qbGc3NofVAs6FqIdkAuo" }
+                            success: function (res) {
+                                //alert(res.data);
+                                // alert(JSON.stringify(res));
+                                localStorage.setItem("atoken", res.data);
+                                location.href = '/Customer/Index';
+                            },
+                            error: function (r) {
+                                //alert("error - " + JSON.stringify(r))
+                            }
+                        });
+
+                    
+                    }
+                    else {
+                        alert("Please check the credentials")
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Bank Management System</h1>
+    <div id="login-div">
+        @*@using (Html.BeginForm("Authorize", "Login", FormMethod.Post))*@
+
+        <table>
+            <tr>
+                <td></td>
+
+                <td style="text-decoration:underline">Admin Login</td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Name)
+                </td>
+                <td>
+                    <input type="text" id="Name" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(Model => Model.Psswrd)</td>
+                <td> <input type="password" id="Psswrd" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@Html.ValidationMessageFor(model => model.Psswrd)</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label class="field-validation-error">@Html.DisplayFor(Model => Model.LoginErrorMessage)</label>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" name="name" value="Login" onclick="Login();" />
+                    @*<input type="reset" name="name" value="Clear" />
+                        <a href="@Url.Action("Index","MainPage")">Back</a>*@
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+
+</body>
+</html>
+

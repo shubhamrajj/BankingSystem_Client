@@ -1,0 +1,109 @@
+﻿@model BankingSystem_client.Models.Customer
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <title>Login</title>
+    <style>
+        #login-div {
+            position: absolute;
+            left: 40%;
+            top: 40%;
+            border: 1px solid #ccc;
+            padding: 10px 10px;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function Login() {
+
+            var Detail = {
+                CustomerName: $('#CustomerName').val(),
+                Psswrd: $('#Psswrd').val()
+            };
+            //alert(Detail);
+            $.ajax({
+                url: "http://localhost:51996/api/Customerlogin",
+                data: JSON.stringify(Detail),
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) { //output
+                    if (data != 0) {
+                        localStorage.setItem("accountNumber", data);
+                        location.href = '/Transaction/Index' 
+                    }
+                    else {
+                        alert("Please check the credentials")
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+
+        
+    </script>
+
+</head>
+<body>
+    <h1>Bank Management System</h1>
+    <div id="login-div">
+        @*@using (Html.BeginForm("Authorize", "CustomerLogin", FormMethod.Post))*@
+        
+            <table>
+                <tr>
+                    <td></td>
+                    <td style="text-decoration:underline">Customer Login</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(Model => Model.CustomerName)
+                    </td>
+                    <td>
+                        <input type="text" id="CustomerName" />              
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.CustomerName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(Model => Model.Psswrd)</td>
+                    <td><input type="password" id="Psswrd" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.Psswrd)</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="field-validation-error">@Html.DisplayFor(Model => Model.LoginErrorMessage)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" name="name" value="Login" onclick="Login();" />
+                        @*<input type="reset" name="name" value="Clear" />
+                        <a href="@Url.Action("Index","MainPage")">Back</a>*@
+                    </td>
+                </tr>
+            </table>
+        
+    </div>
+    @*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Banking Management System</title>
+</head>
+<body>
+    <div> 
+        <h1 style="text-decoration:underline">Welcome to Banking Management System</h1>
+        <table>
+            <tr>
+                <td>
+                    <h3>Are You an </h3>
+                    <a href="@Url.Action("Index","Login")">Admin</a>
+                    <h3>Or a</h3>
+                    <a href="@Url.Action("Index","CustomerLogin")">Customer</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

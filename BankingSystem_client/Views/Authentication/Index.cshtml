@@ -1,0 +1,78 @@
+﻿
+@*@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //$.ajax({
+            //    type: "GET",
+            //    url: "https://localhost:44329/api/GetToken12",
+            //    dataType: "json",
+            //    contentType: "application/json",
+            //    // headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzczM2U2Ny1hNDllLTQxNzUtOGQ4NS1jNzUzNjI5NzcyYTMiLCJ2YWxpZCI6IjEiLCJ1c2VyaWQiOiIxIiwibmFtZSI6ImJpbGFsIiwiZXhwIjoxNjQ5NDM5NzA3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.6MFPER06bWG_GpIcRuD-gd5qbGc3NofVAs6FqIdkAuo" }
+            //    success: function (res) {
+            //       // alert(res);
+            //    },
+            //    error: function (r) {
+            //        alert("error - " + JSON.stringify(r))
+            //    }
+
+            //});
+
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:53682/api/GetToken",
+                dataType: "json",
+                contentType: "application/json",
+               // headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMzczM2U2Ny1hNDllLTQxNzUtOGQ4NS1jNzUzNjI5NzcyYTMiLCJ2YWxpZCI6IjEiLCJ1c2VyaWQiOiIxIiwibmFtZSI6ImJpbGFsIiwiZXhwIjoxNjQ5NDM5NzA3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.6MFPER06bWG_GpIcRuD-gd5qbGc3NofVAs6FqIdkAuo" }
+                success: function (res) {
+                    alert(res.data);
+                    // alert(JSON.stringify(res));
+                     localStorage.setItem("atoken", res.data)
+                },
+                error: function (r) {
+                    alert("error - " + JSON.stringify(r))
+                }
+            });
+
+            //alert(localStorage.getItem("atoken"));
+
+            //debugger;
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "https://localhost:53682/api/GetName2",
+            //    dataType: "json",
+            //    //contentType: "application/json",
+            //    ContentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            //    headers: {
+
+            //        "Authorization": "Bearer " + localStorage.getItem("atoken")
+            //    }
+            //    , success: function (res) {
+            //        alert(JSON.stringify(res));
+            //    },
+            //    error: function (r) {
+            //        alert("error - " + JSON.stringify(r))
+            //    }
+            //});
+        })
+
+    </script>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>*@
